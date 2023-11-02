@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Форма відгуку</title>
+    <style>
+        /* Ось ваші стилі CSS */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        .flash {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flash li {
+            background-color: #ffeeee;
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            margin: 5px 0;
+            padding: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Залиште свій відгук:</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.name.label }}
+            {{ form.name() }}
+        </div>
+        <div>
+            {{ form.comment.label }}
+            {{ form.comment() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <h2>Всі відгуки:</h2>
+    <ul>
+        {% for review in reviews %}
+            <li><strong>{{ review.name }}:</strong> {{ review.comment }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
 
